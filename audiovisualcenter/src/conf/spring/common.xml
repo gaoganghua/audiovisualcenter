@@ -1,0 +1,96 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.1.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.1.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.1.xsd">
+		
+<!-- 	<bean id="firstAction" class="com.common.action.FirstAction" scope="prototype"></bean> -->
+<!-- 	<bean id="login" class="com.common.action.LoginAction" scope="prototype"></bean> -->
+<!-- 		<bean id="firstAction" class="com.common.action.FirstAction"></bean> -->
+		
+<!-- 	<context:component-scan base-package="com.common"> -->
+<!-- 		<context:exclude-filter type="assignable" expression="com.common.test.*"/> -->
+<!-- 		<context:exclude-filter type="assignable" expression="com.common.interceptor.*"/> -->
+<!-- 		<context:exclude-filter type="assignable" expression="com.common.action"/> -->
+<!-- 	</context:component-scan> -->
+	
+	<bean id="placeholder" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+  		<property name="location">
+  			<value>/conf/properties/jdbc.properties</value>
+  		</property>
+  	</bean>
+  	<!--数据源 -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="${jdbc.driver}"></property>
+		<property name="jdbcUrl" value="${jdbc.url}"></property>
+		<property name="user" value="${jdbc.username}"></property>
+		<property name="password" value="${jdbc.password}"></property>
+<!-- 		<property name="initialPoolSize" value="${initialPoolSize}"></property> -->
+<!-- 		<property name="minPoolSize" value="${minPoolSize}"></property> -->
+<!-- 		<property name="maxIdleTime" value="${maxIdleTime}"></property> -->
+<!-- 		<property name="maxPoolSize" value="${maxPoolSize}"></property> -->
+	</bean>
+	
+	<!-- 配置sessionFactory -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+<!-- 		<property name="configLocations"> -->
+<!-- 			<value>/WEB-INF/conf/hbm/hibernate.cfg.xml</value> -->
+<!-- 		</property> -->
+		<property name="mappingDirectoryLocations">
+			<list>
+				<value>/conf/hbm</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.format_sql">true</prop>
+            </props>
+        </property>
+	</bean>
+	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate4.HibernateTemplate">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<!-- 配置事务 -->
+	<bean id="hibernateTransactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+	<tx:advice id="txManager" transaction-manager="hibernateTransactionManager">
+		<tx:attributes>
+			<tx:method name="add" isolation="READ_COMMITTED" propagation="REQUIRED" read-only="false"/>
+			<tx:method name="save" isolation="READ_COMMITTED" propagation="REQUIRED" read-only="false"/>
+			<tx:method name="remove" isolation="READ_COMMITTED" propagation="REQUIRED" read-only="false"/>
+			<tx:method name="delete" isolation="READ_COMMITTED" propagation="REQUIRED" read-only="false"/>
+			<tx:method name="update" isolation="READ_COMMITTED" propagation="REQUIRED" read-only="false"/>
+			<tx:method name="find*" isolation="READ_COMMITTED" propagation="REQUIRED" read-only="true"/>
+		</tx:attributes>
+	</tx:advice>
+	<aop:config>
+		<aop:pointcut expression="execution(public * com.audiovisualcenter.service.*.*(..))" id="txPointerCut"/>
+		<aop:advisor advice-ref="txManager" pointcut-ref="txPointerCut"/>
+	</aop:config>
+	
+	<!-- aop -->
+	<bean id="actionTransaction" class="com.audiovisualcenter.aop.ActionTransaction"></bean>
+	<aop:config>
+		<aop:aspect id="actionTransactionAop" ref="actionTransaction">
+			<aop:pointcut expression="execution(public * com.audiovisualcenter.action.*.*(..))" id="actionPointCut"/>
+			
+			<aop:before method="before" pointcut-ref="actionPointCut"/>
+			<aop:after method="after" pointcut-ref="actionPointCut"/>
+			<aop:after-throwing method="throwException" pointcut-ref="actionPointCut"/>
+		</aop:aspect>
+	</aop:config>
+	
+</beans>

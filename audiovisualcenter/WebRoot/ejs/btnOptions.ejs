@@ -1,0 +1,55 @@
+<div class="visible-md visible-lg hidden-sm hidden-xs action-buttons" id="<%=data%>" name="btnoptions">
+	<% if(edit==true){%>
+		<a class="green" href="javascript:void(0)">
+			<i class="icon-pencil bigger-130"></i>
+		</a>
+	<%}%>
+	<% if(remove==true){%>
+		<a class="red" href="javascript:void(0)">
+			<i class="icon-trash bigger-130"></i>
+		</a>
+	<%}%>
+	<% if(view==true){%>
+		<a class="blue" href="javascript:void(0)">
+			<i class="icon-zoom-in bigger-130"></i>
+		</a>
+	<%}%>
+</div>
+
+<div class="visible-xs visible-sm hidden-md hidden-lg" id="<%=data%>">
+	<div class="inline position-relative">
+		<button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto">
+			<i class="icon-caret-down icon-only bigger-120"></i>
+		</button>
+		
+		<ul class="dropdown-menu dropdown-only-icon dropdown-yellow pull-right dropdown-caret dropdown-close">
+			<% if(edit==true){%>
+				<li>
+					<a href="javascript:void(0)" class="tooltip-success" data-rel="tooltip" title="Edit">
+						<span class="green">
+							<i class="icon-edit bigger-120"></i>
+						</span>
+					</a>
+				</li>
+			<%}%>
+			<% if(remove==true){%>
+				<li>
+					<a href="javascript:void(0)" class="tooltip-error" data-rel="tooltip" title="Delete">
+						<span class="red">
+							<i class="icon-trash bigger-120"></i>
+						</span>
+					</a>
+				</li>
+			<%}%>
+			<% if(view==true){%>
+				<li>
+					<a href="javascript:void(0)" class="tooltip-error" data-rel="tooltip" title="Delete">
+						<span class="blue">
+							<i class="icon-zoom-in bigger-120"></i>
+						</span>
+					</a>
+				</li>
+			<%}%>
+		</ul>
+	</div>
+</div>

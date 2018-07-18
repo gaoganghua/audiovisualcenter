@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+    "http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+	<constant name="struts.devMode" value="true" /> 
+	<constant name="struts.i18n.encoding" value="utf-8"/>
+	<constant name="struts.enable.DynamicMethodInvocation" value="true"></constant>
+	<constant name="struts.multipart.maxSize" value="10240000"/>	
+	<constant name="struts.multipart.saveDir" value="/temp"/>
+	<constant name="struts.objectFactory" value="org.apache.struts2.spring.StrutsSpringObjectFactory" />
+	<constant name="struts.custom.i18n.resources" value="global" />
+	
+  	<include file="struts-default.xml"></include> 
+  	<include file="struts-plugin.xml"></include> 
+  	
+  	<!-- 通用配置 --> 
+  	<package name="common-default" abstract="true" extends="json-default">
+		<interceptors>
+			<interceptor name="loginInterceptor" class="com.audiovisualcenter.interceptor.LoginInterceptor"></interceptor>
+			<interceptor name="xssInterceptor" class="com.audiovisualcenter.interceptor.XssInterceptor"></interceptor>
+ 			<interceptor-stack name="interceptor-stack">
+ 				<interceptor-ref name="xssInterceptor"></interceptor-ref>
+ 				<interceptor-ref name="defaultStack"></interceptor-ref>
+ 				<interceptor-ref name="loginInterceptor"></interceptor-ref>
+ 			</interceptor-stack>
+ 		</interceptors>
+ 		<default-interceptor-ref name="interceptor-stack"></default-interceptor-ref>
+ 		<default-action-ref name="index"></default-action-ref>
+		<global-results>
+ 			<result name="exceptions">/pages/common/error.jsp</result>
+ 			<result name="data">/pages/common/data.jsp</result>
+ 			<result name="login">/pages/login.jsp</result>
+ 		</global-results>
+ 		<global-allowed-methods>regex:.*</global-allowed-methods>
+<!-- 		<global-exception-mappings> -->
+<!-- 			<exception-mapping result="exceptions" exception="Exception"></exception-mapping> -->
+<!-- 		</global-exception-mappings> -->
+	</package>
+	 	
+  	<!-- 管理配置 -->
+	<include file="struts-manager.xml"></include>
+
+</struts>

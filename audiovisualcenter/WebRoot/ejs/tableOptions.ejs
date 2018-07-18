@@ -1,0 +1,68 @@
+<% if(data!=null && data.length>0){%>
+<table id="sample-table-2" class="table table-striped table-bordered table-hover">
+	<thead>
+		<tr>
+			<th class="center">序号</th>
+			<th>借用人</th>
+			<th>电话</th>
+			<th class="hidden-480">经手人</th>
+			<th name="borrowTime">
+				<i class="icon-time bigger-110 hidden-480"></i>
+				借出时间
+				<i class="icon-chevron-up pull-right" bigger-110 hidden-480" id="orderBtn"></i>
+			</th>
+			<th class="hidden-480">备注</th>
+			<th>操作</th>
+		</tr>
+	</thead>
+	
+	<tbody>
+		<% for(var i=0;i<data.length;i++){%>
+			<tr id="<%=data[i].id%>">
+				<td class="center">
+					<label>
+						<%=(i+1)%>
+					</label>
+				</td>
+		
+				<td>
+					<%=data[i].clientName%>
+				</td>
+				<td><%=data[i].clientPhone%></td>
+				<td class="hidden-480"><%=data[i].managerName%></td>
+				<td ><%=data[i].borrowTime%></td>
+		
+				<td class="hidden-480" name="borrowMsgBtn">
+					<% if(data[i].borrowMsg!=""){%>
+						<button class="btn btn-xs btn-warning">备注</button>
+					<%}else{%>
+						<button class="btn btn-xs">备注</button>
+					<%}%>
+				</td>
+		
+				<td name="actionBtns">
+					<div class="action-buttons">
+						<%  if(view==true){%>
+						<button class="btn btn-xs btn-primary" name="viewbtn">查看器材</button>
+						<%} if(confirm==true){%>
+						<button class="btn btn-xs btn-success" name="confirmreturnbtn">确认归还</button>
+						<%} if(remove==true){%>
+						<button class="btn btn-xs btn-danger" name="removebtn">删除借单</button>
+						<%} if(edit==true){%>
+						<button class="btn btn-xs btn-inverse" name="editbtn">编辑借单</button>
+						<%}%>
+					</div>
+				</td>
+			</tr>
+		<%}%>
+	</tbody>
+</table>
+<%}else{%>
+<div class="alert alert-danger">
+	<button type="button" class="close" data-dismiss="alert">
+		<i class="icon-remove"></i>
+	</button>
+	没有任何未归还订单
+	<br>
+</div>
+<%}%>

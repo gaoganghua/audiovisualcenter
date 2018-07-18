@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+    "http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+	<constant name="struts.devMode" value="true" /> 
+	<constant name="struts.i18n.encoding" value="utf-8"/>
+	<constant name="struts.enable.DynamicMethodInvocation" value="true"></constant>
+  	<include file="struts-default.xml"></include> 
+  	<include file="struts-plugin.xml"></include> 
+  	
+  	
+	<!-- 通用配置 -->
+	<package name="common-default" abstract="true" extends="json-default">
+		<interceptors>
+			<interceptor name="xssInterceptor" class="com.common.interceptor.XssInterceptor"></interceptor>
+ 			<interceptor-stack name="interceptor-stack">
+ 				<interceptor-ref name="xssInterceptor"></interceptor-ref>
+ 				<interceptor-ref name="defaultStack"></interceptor-ref>
+ 			</interceptor-stack>
+ 		</interceptors>
+ 		<default-interceptor-ref name="interceptor-stack"></default-interceptor-ref>
+ 		<default-action-ref name="index"></default-action-ref>
+		<global-results>
+ 			<result name="exceptions">/pages/common/error.jsp</result>
+ 			<result name="data">/user/common/data.jsp</result>
+ 			<result name="login">/user/login.jsp</result>
+ 		</global-results>
+ 		<global-allowed-methods>regex:.*</global-allowed-methods>
+		<global-exception-mappings>
+			<exception-mapping result="exceptions" exception="Exception"></exception-mapping>
+		</global-exception-mappings>
+	</package>
+	
+
+</struts>

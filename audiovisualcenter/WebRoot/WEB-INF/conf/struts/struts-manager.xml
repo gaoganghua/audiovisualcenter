@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+    "http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+  	
+	<package name="main" namespace="/" extends="common-default">
+<!-- 		<action name="login" class="com.audiovisualcenter.action.LoginAction" method="login"> -->
+<!--    			<result name="success">/pages/login.jsp</result> -->
+<!--    		</action> -->
+   		<action name="loginCheck" class="com.audiovisualcenter.action.LoginAction" method="check">
+   			<result name="success" type="json">
+				<param name="root">jsondata</param>
+			</result>
+   		</action>
+		<action name="loginsuccess" class="com.audiovisualcenter.action.LoginAction" method="loginIn">
+			<result name="success">/pages/index.jsp</result>
+		</action>
+		<action name="modifypassword" class="com.audiovisualcenter.action.LoginAction" method="modifyLoginPassword">
+			<result name="success" type="json">
+				<param name="root">jsondata</param>
+			</result>
+		</action>
+		<action name="loginout" class="com.audiovisualcenter.action.LoginAction" method="loginOut">
+			<result name="success">/pages/login.jsp</result>
+		</action>
+		<action name="module" class="com.audiovisualcenter.action.ModuleAction" method="module">
+			<result name="success">/pages/common/module.jsp</result>
+		</action>
+		<action name="loadpassword" class="com.audiovisualcenter.action.LoadDataAction" method="loadPassword">
+			<result name="loadpassword" type="json">
+				<param name="root">jsondata</param>
+			</result>
+		</action>
+		
+		<action name="test1" class="com.audiovisualcenter.action.BasketAction" method="basket">
+			<result name="success">/pages/test.jsp</result>
+		</action>
+		<action name="test2" >
+ 			<result name="success">/pages/test2.jsp</result>
+ 		</action>
+ 		<action name="test" class="com.audiovisualcenter.action.HistoryAction" method="history">
+ 			<result name="success">/pages/history.jsp</result>
+ 		</action>
+ 	</package>
+ 	<!-- 公用界面 信息及器材借用界面-->
+ 	<package name="index" namespace="/" extends="common-default">
+ 		<action name="index">
+ 			<result name="success">/pages/index.jsp</result>
+ 		</action>
+ 		<action name="indextable" class="com.audiovisualcenter.action.IndexAction" method="index">
+ 			<result name="success" type="json">
+ 				<param name="root">jsondata</param>
+ 			</result>
+ 		</action>
+ 		<action name="indextableselect" class="com.audiovisualcenter.action.IndexAction" method="selectEquip">
+ 			<result name="select">/pages/modal/selectequip.jsp</result>
+ 		</action>
+ 		<action name="addbasket" class="com.audiovisualcenter.action.IndexAction" method="addBasket">
+ 			<result name="success" type="json">
+ 				<param name="root">jsondata</param>
+ 			</result>
+ 		</action>
+ 		<action name="querybasket" class="com.audiovisualcenter.action.IndexAction" method="queryBasket">
+ 			<result name="success" type="json">
+ 				<param name="root">jsondata</param>
+ 			</result>
+ 		</action>
+ 		<action name="queryEquipSurplus" class="com.audiovisualcenter.action.IndexAction" method="queryEquipSurplus">
+ 			<result name="success" type="json">
+ 				<param name="root">jsondataObject</param>
+ 			</result>
+ 		</action>
+ 	</package>
+ 	<!-- 合借框 -->
+ 	<package name="basket" namespace="/" extends="common-default">
+ 		<action name="basket" class="com.audiovisualcenter.action.BasketAction" method="basket">
+ 			<result name="success">/pages/basket.jsp</result>
+ 		</action>
+ 		<action name="basketDelete" class="com.audiovisualcenter.action.BasketAction" method="deleteBasketEquip">
+ 			<result name="success" type="json">
+ 				<param name="root">jsondata</param>
+ 			</result>
+ 		</action>
+ 		<action name="basketUpdate" class="com.audiovisualcenter.action.BasketAction" method="updateBasketEquip">
+ 			<result name="success" type="json">
+ 				<param name="root">jsondata</param>
+ 			</result>
+ 		</action>
+ 		<action name="basketEdit" class="com.audiovisualcenter.action.BasketAction" method="editBasketEquip">
+ 			<result name="select">/pages/modal/editquip.jsp</result>
+ 		</action>
+ 		<action name="emptyBasket" class="com.audiovisualcenter.action.BasketAction" method="emptyBasket">
+ 			<result name="success" type="json">
+ 				<param name="root">jsondata</param>
+ 			</result>
+ 		</action>
+ 		<action name="confirmborrow" class="com.audiovisualcenter.action.ClientInfoAction" method="confirmBorrow">
+ 			<result name="success">/pages/modal/confirmborrow.jsp</result>
+ 		</action>
+ 		<action name="collegeInfo" class="com.audiovisualcenter.action.ClientInfoAction" method="collegeInfo">
+ 			<result name="success" type="json">
+ 				<param name="root">jsondata</param>
+ 			</result>
+ 		</action>
+ 		<action name="clientInfo" class="com.audiovisualcenter.action.ClientInfoAction" method="clientInfo">
+ 			<result name="success" type="json">
+ 				<param name="root">jsondata</param>
+ 			</result>
+ 		</action>
+ 	</package>
+	<!-- 器材管理 -->
+	<package name="equipmanager" namespace="/" extends="common-default">
+		<action name="equipManager" class="com.audiovisualcenter.action.EquipManagerAction" method="execute">
+ 			<result name="success">/pages/equipmanage.jsp</result>
+ 		</action>
+ 		<action name="equipInfo" class="com.audiovisualcenter.action.EquipManagerAction" method="equipManager">
+			<result name="success" type="json">
+				<param name="root">map</param>
+			</result>
+<!--  			<result name="success" type="json"> -->
+<!--  				<param name="root">map</param> -->
+<!-- 				<param name="includeProperties">  -->
+<!-- 					 ^data/[/d+/]/./w+,  -->
+<!-- 		            totalpages, currentpage, totalrecords,  -->
+<!-- 		        </param>   -->
+<!-- 		        <param name="noCache">true</param>   -->
+<!-- 		        <param name="ignoreHierarchy">false</param>   -->
+<!--  			</result> -->
+ 		</action>
+ 		<action name="equipAddPage" class="com.audiovisualcenter.action.EquipManagerAction" method="equipAddManager">
+ 			<result name="equipadd">/pages/modal/equipmanager.jsp</result>
+ 		</action>
+ 		<action name="equipEditPage" class="com.audiovisualcenter.action.EquipManagerAction" method="equipEditManager">
+ 			<result name="equipedit">/pages/modal/equipmanageredit.jsp</result>
+ 		</action>
+ 		<action name="equipAdd" class="com.audiovisualcenter.action.EquipManagerAction" method="addEquipManager">
+ 			<result name="success" type="json">
+ 				<param name="root">jsondata</param>
+ 			</result>
+ 		</action>
+ 		<action name="equipDelete" class="com.audiovisualcenter.action.EquipManagerAction" method="deleteEquipManager">
+ 			<result name="success" type="json">
+ 				<param name="root">jsondata</param>
+ 			</result>
+ 		</action>
+ 		<action name="equipSetStatus" class="com.audiovisualcenter.action.EquipManagerAction" method="setStatus">
+ 			<result name="success" type="json">
+ 				<param name="root">jsondata</param>
+ 			</result>
+ 		</action>
+ 		<action name="equipUpdate" class="com.audiovisualcenter.action.EquipManagerAction" method="updateEquipManager">
+ 			<result name="success" type="json">
+ 				<param name="root">jsondata</param>
+ 			</result>
+ 		</action>
+ 	</package>
+ 	<!-- 等待归还 -->
+ 	 <package name="waitreturn" namespace="/" extends="common-default">
+ 	 	<action name="waitreturnPage" class="com.audiovisualcenter.action.WaitReturnAction" method="execute">
+ 			<result name="success">/pages/waitereturn.jsp</result>
+ 		</action>
+ 		<action name="waitreturnInfo" class="com.audiovisualcenter.action.WaitReturnAction" method="waitreturnInfo">
+ 			<result name="success" type="json">
+ 				<param name="root">jsondata</param>
+ 			</result>
+ 		</action>
+ 		<action name="waitreturnView" class="com.audiovisualcenter.action.WaitReturnAction" method="waitreturnView">
+ 			<result name="success" type="json">
+ 				<param name="root">jsondata</param>
+ 			</result>
+ 		</action>
+ 		<action name="waitreturnTotal" class="com.audiovisualcenter.action.WaitReturnAction" method="waitreturnTotal">
+ 			<result name="success" type="json">
+ 				<param name="root">jsondata</param>
+ 			</result>
+ 		</action>
+ 		<action name="waitreturnCancel" class="com.audiovisualcenter.action.WaitReturnAction" method="waitreturnCancel">
+ 			<result name="success" type="json">
+ 				<param name="root">jsondata</param>
+ 			</result>
+ 		</action>
+ 		<action name="waitreturnConfirm" class="com.audiovisualcenter.action.WaitReturnAction" method="waitreturnConfirm">
+ 			<result name="success" type="json">
+ 				<param name="root">jsondata</param>
+ 			</result>
+ 		</action>
+ 		<action name="waitreturnMsg" class="com.audiovisualcenter.action.WaitReturnAction" method="waitreturnMsg">
+ 			<result name="success" type="json">
+ 				<param name="root">jsondata</param>
+ 			</result>
+ 		</action>
+ 	</package>
+ 	<!-- 历史记录 -->
+ 	<package name="history" namespace="/" extends="common-default">
+ 		<action name="historyPage" class="com.audiovisualcenter.action.HistoryAction" method="execute">
+ 			<result name="success">/pages/history.jsp</result>
+ 		</action>
+ 		<action name="historyInfo" class="com.audiovisualcenter.action.HistoryAction" method="history">
+ 			<result name="success" type="json">
+				<param name="root">jsondata</param>
+			</result>
+ 		</action>
+ 		<action name="historyRemove" class="com.audiovisualcenter.action.HistoryAction" method="historyRemove">
+ 			<result name="success" type="json">
+				<param name="root">jsondata</param>
+			</result>
+ 		</action>
+ 		<action name="historyView" class="com.audiovisualcenter.action.HistoryAction" method="historyView">
+ 			<result name="success">/pages/modal/historyview.jsp</result>
+ 			<result name="equips" type="json">
+				<param name="root">jsondata</param>
+			</result>
+ 		</action>
+ 		<action name="historyMsg" class="com.audiovisualcenter.action.HistoryAction" method="historyMsg">
+ 			<result name="success" type="json">
+				<param name="root">jsondata</param>
+			</result>
+ 		</action>
+ 	</package>
+ 	
+    <!-- Add packages here -->
+
+</struts>

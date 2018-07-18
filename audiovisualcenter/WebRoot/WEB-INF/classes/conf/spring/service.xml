@@ -1,0 +1,53 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.1.xsd">
+	
+	<bean id="baseService" class="com.audiovisualcenter.service.BaseService">
+		<property name="dao" ref="baseDao"></property>
+	</bean>
+	
+	<bean id="clsService" class="com.audiovisualcenter.service.ClsService">
+		<property name="dao" ref="clsDao"></property>
+	</bean>
+	<bean id="borrowbasketService" class="com.audiovisualcenter.service.BorrowBasketService">
+		<property name="dao" ref="borrowbasketDao"></property>
+	</bean>
+	<bean id="borrowEquipService" class="com.audiovisualcenter.service.BorrowEquipService">
+		<property name="dao" ref="borrowequipDao"></property>
+	</bean>
+<!-- 	<bean id="clientClsService" class="com.audiovisualcenter.service.ClientClsService"> -->
+<!-- 		<property name="dao" ref="clientClsDao"></property> -->
+<!-- 	</bean> -->
+	<bean id="borrowService" class="com.audiovisualcenter.service.BorrowService">
+		<property name="dao" ref="borrowDao"></property>
+	</bean>
+	<bean id="clientService" class="com.audiovisualcenter.service.ClientService">
+		<property name="dao" ref="clientDao"></property>
+	</bean>
+	<bean id="collegeService" class="com.audiovisualcenter.service.CollegeService">
+		<property name="dao" ref="collegeDao"></property>
+	</bean>
+	<bean id="equipCategoryService" class="com.audiovisualcenter.service.EquipCategoryService">
+		<property name="dao" ref="equipcategoryDao"></property>
+	</bean>
+	<bean id="equipService" class="com.audiovisualcenter.service.EquipService">
+		<property name="dao" ref="equipDao"></property>
+	</bean>
+	<bean id="groupModuleService" class="com.audiovisualcenter.service.GroupModuleService">
+		<property name="dao" ref="groupmoduleDao"></property>
+	</bean>
+	<bean id="groupService" class="com.audiovisualcenter.service.GroupService">
+		<property name="dao" ref="groupDao"></property>
+	</bean>
+	<bean id="moduleService" class="com.audiovisualcenter.service.ModuleService">
+		<property name="dao" ref="moduleDao"></property>
+	</bean>
+	<bean id="userService" class="com.audiovisualcenter.service.UserService">
+		<property name="dao" ref="userDao"></property>
+	</bean>
+</beans>

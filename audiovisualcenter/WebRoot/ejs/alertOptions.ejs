@@ -1,0 +1,16 @@
+<div class="alert  <%=style%>">
+	<% if(remove==true){%>
+		<button class="close" type="button" data-dismiss="alert">
+			<i class="icon-remove"></i>
+		</button>
+	<%}%>
+	<% if(strong==true){%>
+		<strong>
+			<% if(icon==true){%>
+			<%}%>
+			<%=strongtext%>
+		</strong>
+	<%}%>
+	<%=text%>
+	<br>
+</div>

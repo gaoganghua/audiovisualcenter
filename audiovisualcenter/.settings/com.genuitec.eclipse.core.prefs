@@ -1,0 +1,3 @@
+eclipse.preferences.version=1
+validator.Checked=WebRoot/WEB-INF/conf/struts/struts-manager.xml,WebRoot/WEB-INF/conf/struts/struts.xml
+validator.Unchecked=
